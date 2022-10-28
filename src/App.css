@@ -1,5 +1,25 @@
-.card-vagas{
+.card-vagas {
   height: 50px !important;
   width: 120px !important;
   margin: 2%;
+}
+
+.estacionamento {
+  width: 800px;
+}
+
+.btn {
+  height: 36px !important;
+}
+
+.btn-1 {
+  position: absolute;
+  left: 134px;
+  top: 203px;
+}
+
+.btn-2 {
+  position: absolute;
+  left: 216px;
+  top: 206px;
 }

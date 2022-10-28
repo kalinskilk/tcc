@@ -1,46 +1,43 @@
-import "./App.css";
-import useWebSocket from "react-use-websocket";
 import { useState } from "react";
-
+import useWebSocket from "react-use-websocket";
+import "./App.css";
+import BlocoN from "./assets/bloco-n.jpeg";
 function App() {
   const [vagas, setVagas] = useState([]);
-  const { lastJsonMessage, sendMessage } = useWebSocket("ws://localhost:8080", {
-    onOpen: () => console.log(`Connected to App WS`),
-    onMessage: () => {
-      if (lastJsonMessage) {
-        setVagas(lastJsonMessage);
-        console.log(lastJsonMessage);
-      }
-    },
-    queryParams: { token: "123456" },
-    onError: (event) => {
-      console.error(event);
-    },
-    shouldReconnect: (closeEvent) => true,
-    reconnectInterval: 3000,
-  });
+  const { lastJsonMessage, sendMessage } = useWebSocket(
+    "ws://kalinski-tcc.fly.dev/",
+    {
+      onOpen: () => console.log(`Connected to App WS`),
+      onMessage: () => {
+        if (lastJsonMessage) {
+          setVagas(lastJsonMessage);
+          console.log(lastJsonMessage);
+        }
+      },
+      onError: (event) => {
+        console.error(event);
+      },
+      shouldReconnect: (closeEvent) => true,
+      reconnectInterval: 3000,
+    }
+  );
 
   return (
     <div className="container-fluid">
-      <div class="card mt-2">
-        <div class="card-body">
-          <div class="row">
-            {vagas?.map((el) => {
-              const statusColor = el.status
-                ? "border-danger bg-danger"
-                : "border-success bg-success";
+      <img src={BlocoN} className="estacionamento" />
 
-              return (
-                <div
-                  class={`p-2 col-sm-2 card card-vagas ${statusColor} text-center`}
-                  key={el.id}
-                >
-                  <b>Vaga Nº{el.id}</b>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div class="row">
+        {vagas?.map((el, index) => {
+          const statusColor = el.status == "1" ? "btn-danger" : "btn-success";
+          return (
+            <div>
+              <button
+                className={`btn ${statusColor} btn-${el.id}`}
+                key={el.id}
+              ></button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
