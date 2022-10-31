@@ -5,7 +5,7 @@ import BlocoN from "./assets/bloco-n.jpeg";
 function App() {
   const [vagas, setVagas] = useState([]);
   const { lastJsonMessage, sendMessage } = useWebSocket(
-    "ws://kalinski-tcc.fly.dev/",
+    "wss://kalinski-tcc.fly.dev/",
     {
       onOpen: () => console.log(`Connected to App WS`),
       onMessage: () => {
